@@ -222,7 +222,10 @@ impl<'a, 'b> OutputStream<'b> for Stream<'a> {
             // set to 0 v4l2 will set it to the size of the plane:
             // https://www.kernel.org/doc/html/v4.15/media/uapi/v4l/buffer.html#struct-v4l2-plane
             v4l2_buf.bytesused = self.buf_meta[index].bytesused;
+            v4l2_buf.flags = self.buf_meta[index].flags.into();
             v4l2_buf.field = self.buf_meta[index].field;
+            v4l2_buf.timestamp = self.buf_meta[index].timestamp.into();
+            v4l2_buf.sequence = self.buf_meta[index].sequence;
 
             if self
                 .handle
